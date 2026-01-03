@@ -3,16 +3,19 @@ let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 // Load tasks on page load
 window.onload = renderTasks;
 
-// Add new task
+// Add task
 function addTask() {
   const input = document.getElementById("taskInput");
-  const taskText = input.value.trim();
+  const text = input.value.trim();
 
-  if (taskText === "") return alert("Please enter a task!");
+  if (text === "") {
+    alert("Please enter a task!");
+    return;
+  }
 
   tasks.push({
     id: Date.now(),
-    text: taskText,
+    text: text,
     completed: false
   });
 
@@ -23,20 +26,19 @@ function addTask() {
 
 // Render tasks
 function renderTasks() {
-  const taskList = document.getElementById("taskList");
-  taskList.innerHTML = "";
+  const list = document.getElementById("taskList");
+  list.innerHTML = "";
 
   tasks.forEach(task => {
     const li = document.createElement("li");
-    li.className =
-      "list-group-item d-flex justify-content-between align-items-center";
+    li.className = "list-group-item d-flex justify-content-between align-items-center";
 
     li.innerHTML = `
       <div>
-        <input type="checkbox" ${task.completed ? "checked" : ""}
-          onclick="toggleTask(${task.id})"
-          class="form-check-input me-2">
-        <span style="${task.completed ? 'text-decoration: line-through; opacity:0.6' : ''}">
+        <input type="checkbox" class="form-check-input me-2"
+          ${task.completed ? "checked" : ""}
+          onclick="toggleTask(${task.id})">
+        <span style="${task.completed ? 'text-decoration:line-through; opacity:0.6;' : ''}">
           ${task.text}
         </span>
       </div>
@@ -48,7 +50,7 @@ function renderTasks() {
       </div>
     `;
 
-    taskList.appendChild(li);
+    list.appendChild(li);
   });
 }
 
@@ -73,7 +75,7 @@ function editTask(id) {
   const task = tasks.find(t => t.id === id);
   const newText = prompt("Edit task:", task.text);
 
-  if (newText !== null && newText.trim() !== "") {
+  if (newText && newText.trim() !== "") {
     task.text = newText.trim();
     saveTasks();
     renderTasks();
@@ -84,3 +86,10 @@ function editTask(id) {
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
+// Add task on Enter key
+document.getElementById("taskInput").addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    addTask();
+  }
+});
