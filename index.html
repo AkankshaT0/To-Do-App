@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Modern To-Do App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="todo-card">
+    <h3 class="text-center mb-3">📝 My Tasks</h3>
+
+    <div class="input-group mb-3">
+      <input type="text" id="taskInput" class="form-control" placeholder="Add a new task...">
+      <button class="btn btn-primary" onclick="addTask()">
+        <i class="bi bi-plus-lg"></i>
+      </button>
+    </div>
+
+    <ul class="list-group todo-list" id="taskList">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <input type="checkbox" class="form-check-input me-2">
+          <span>Finish UI Design</span>
+        </div>
+        <div>
+          <i class="bi bi-pencil-square text-warning me-2"></i>
+          <i class="bi bi-trash text-danger"></i>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
